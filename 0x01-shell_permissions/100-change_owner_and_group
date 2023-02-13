@@ -1,3 +1,6 @@
 #!/bin/bash
 chown -hR vincent:staff .
+<<<<<<< HEAD
 
+=======
+>>>>>>> 57e2befc3266784fb4c734e292d9774240c31bf3
