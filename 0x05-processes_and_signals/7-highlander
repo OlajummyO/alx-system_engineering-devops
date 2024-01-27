@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Script: 67-stop_me_if_you_can.sh
+# Description: Display "To infinity and beyond" indefinitely with a sleep of 2 seconds between iterations.
+# Print "I am invincible!!!" on receiving a SIGTERM signal and stop the 7-highlander process.
+
+# Function to handle SIGTERM signal
+handle_sigterm() {
+    echo "I am invincible!!!"
+    exit 0
+}
+
+# Trap SIGTERM signal and associate it with the function
+trap 'handle_sigterm' SIGTERM
+
+# Start the 7-highlander process
+7-highlander &
+
+# Store its PID
+highlander_pid=$!
+
+# Main loop
+while true; do
+    echo "To infinity and beyond"
+    sleep 2
+done

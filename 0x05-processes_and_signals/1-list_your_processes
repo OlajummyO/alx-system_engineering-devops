@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Script: list_processes.sh
+# Description: Displays a list of currently running processes with process hierarchy in a user-oriented format.
+
+# Display header
+printf "%-8s %-15s %-15s %-30s\n" "PID" "USER" "PPID" "COMMAND"
+echo "------------------------------------------------------------"
+
+# Use ps command to display process information
+ps -e -o pid,user,ppid,args --forest --sort=-rss | awk '{printf("%-8s %-15s %-15s %-30s\n", $1, $2, $3, $0)}'

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Script: find_bash_pid_alt.sh
+# Description: Display PID and process name for processes containing the word 'bash'.
+
+# Iterate through /proc directory to find processes
+for pid_dir in /proc/[0-9]*; do
+    pid=$(basename "$pid_dir")
+
+    # Check if cmdline file exists (contains process command line)
+    if [ -f "$pid_dir/cmdline" ]; then
+        # Extract process name from cmdline
+        process_name=$(tr '\0' ' ' < "$pid_dir/cmdline" | grep -o '\b[b]ash\b')
+
+        # If process name contains 'bash', display PID and process name
+        if [ -n "$process_name" ]; then
+            echo "PID: $pid, Process Name: $process_name"
+        fi
+    fi
+done

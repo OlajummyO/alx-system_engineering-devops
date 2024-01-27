@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Script: find_bash_pid.sh
+# Description: Display lines containing the word 'bash' and get the PID of the Bash process.
+
+# shellcheck disable=SC2009
+
+# Use ps command to find the Bash process
+ps aux | grep -E '[b]ash'
+
