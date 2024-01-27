@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Path to the passwd file
+passwd_file="/etc/passwd"
+
+# Use while loop to read the file line by line
+while IFS=: read -r username password userid groupid user_info home_dir shell
+do
+  # Display the required information
+  echo "The user $username is part of the $groupid gang, lives in $home_dir and rides $shell."
+  echo "User ID's place is protected by the passcode $password, more info about the user here: $user_info"
+  echo
+done < "$passwd_file"
+
