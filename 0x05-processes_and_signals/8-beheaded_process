@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Script: kill_highlander.sh
 # Description: Kill the process named "7-highlander".
-
 # Use pkill to terminate the process
 pkill -f "7-highlander"
