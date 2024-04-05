@@ -1,28 +1,6 @@
-#!/bin/bash
+# fix nginx to accept and serve more requests
 
-if ! command -v nginx &> /dev/null; then
-    echo "Nginx is not installed. Installing..."
-    sudo apt update
-    sudo apt install nginx -y
-fi
-
-nginx_config="/etc/nginx/nginx.conf"
-if [ -f "$nginx_config" ]; then
-    echo "Nginx configuration found."
-else
-    echo "Nginx configuration file not found."
-    exit 1
-fi
-
-occupied_port=$(sudo netstat -tuln | grep ":80 ")
-if [ -n "$occupied_port" ]; then
-    echo "Port 80 is already occupied by another process:"
-    echo "$occupied_port"
-    exit 1
-fi
-
-sudo sed -i 's/^listen\s*80;/listen 80 default_server;/g' "$nginx_config"
-
-sudo systemctl restart nginx
-
-echo "Nginx has been configured to listen on port 80."
+exec {'modify max open files limit setting':
+  command => 'sed -i "s/15/4096/" /etc/default/nginx && sudo service nginx restart',
+  path    => '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games',
+}
