@@ -1,0 +1,27 @@
+/*
+add the required iptables rule manually
+*/
+
+sudo iptables -t nat -A PREROUTING -p tcp --dport 8080 -j REDIRECT --to-port 80
+
+/*
+To reflect this configuration in the ufw configuration file, you would typically edit /etc/ufw/before.rules file, but as you specifically asked for a copy of the modified ufw configuration file, here it is:
+*/
+
+
+ Rules that should be run before the ufw command line added rules. Custom
+ rules should be added to one of these chains:
+ ufw-before-input
+ ufw-before-output
+ ufw-before-forward
+
+/*
+After adding the iptables rule for port forwarding, you would need to enable IP forwarding in the kernel to allow the server to act as a router. You can enable IP forwarding by uncommenting the following line in /etc/ufw/sysctl.conf:
+ */
+
+net.ipv4.ip_forward=1
+
+/* Make sure to reload ufw for the changes to take effect:
+*/
+
+sudo ufw reload
